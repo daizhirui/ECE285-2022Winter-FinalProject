@@ -1,0 +1,38 @@
+TY  - JOUR
+AB  - We develop algorithms to construct inner approximations of the cone of positive semidefinite matrices via linear programming and second order cone programming. Starting with an initial linear algebraic approximation suggested recently by Ahmadi and Majumdar, we describe an iterative process through which our approximation is improved at every step. This is done using ideas from column generation in large-scale linear programming. We then apply these techniques to approximate the sum of squares cone in a nonconvex polynomial optimization setting, and the copositive cone for a discrete optimization problem.
+AU  - Ahmadi, Amir Ali
+AU  - Dash, Sanjeeb
+AU  - Hall, Georgina
+DO  - https://doi.org/10.1016/j.disopt.2016.04.004
+SN  - 1572-5286
+T2  - Discrete Optimization
+KW  - Semidefinite programming
+KW  -  Polynomial optimization
+KW  -  Copositive programming
+KW  -  Linear programming
+KW  -  Second order cone programming
+SP  - 129
+EP  - -151
+TI  - Optimization over structured subsets of positive semidefinite matrices via column generation
+UR  - https://www.sciencedirect.com/science/article/pii/S1572528616300196
+VL  - 24
+PY  - 2017
+ER  - 
+
+
+TY  - JOUR
+AB  - We investigate solution of the maximum cut problem using a polyhedral cut and price approach. The dual of the well-known SDP relaxation of maxcut is formulated as a semi-infinite linear programming problem, which is solved within an interior point cutting plane algorithm in a dual setting; this constitutes the pricing (column generation) phase of the algorithm. Cutting planes based on the polyhedral theory of the maxcut problem are then added to the primal problem in order to improve the SDP relaxation; this is the cutting phase of the algorithm. We provide computational results, and compare these results with a standard SDP cutting plane scheme.
+AU  - Krishnan, Kartik
+AU  - Mitchell, John E.
+DO  - 10.1007/s10589-005-5958-3
+ID  - Krishnan2006
+SN  - 1573-2894
+T2  - Computational Optimization and Applications
+IS  - 1
+SP  - 51
+EP  - -71
+TI  - A Semidefinite Programming Based Polyhedral Cut and Price Approach for the Maxcut Problem
+UR  - https://doi.org/10.1007/s10589-005-5958-3
+VL  - 33
+PY  - 2006
+ER  - 
