@@ -3,6 +3,11 @@ function [C, A, b] = sdplib(filename)
 %the SDP problem is in the following format, NOT the SDPLIB format
 %       min_X <C,X>
 %  subject to <Ai,X>=bi  i = 1 ... m
+%             X >= 0
+%Return:
+%  C: nxn sparse symmetric matrix
+%  A: cell array of m nxn sparse symmetric matrices
+%  b: nx1 right-hand-side equality constraint vector
 
 fid = fopen(filename);
 tline = fgetl(fid);
@@ -35,14 +40,17 @@ b = textscan(tline, '%f');
 b = cell2mat(b);
 tline = fgetl(fid);
 
-% read matrix data, C = -F0 = -F(1,:,:), Ai = Fi = F(i+1,:,:)
+% read matrix data, C = -F0, Ai = Fi
 % each line is <matno> <blkno> <i> <j> <entry>
 % matno: the index of the matrix
 % blkno: the index of the block in the matrix
 % i, j: the index in the block
 % entry: the element value
-matrixSize = sum(blockSize, 'all');
-F = zeros(m + 1, matrixSize, matrixSize);
+% store the data as sparse matrix
+matSize = sum(blockSize, 'all');
+sparseIdxi = cell(m + 1, 1);
+sparseIdxj = cell(m + 1, 1);
+sparseVal = cell(m + 1, 1);
 while ischar(tline)
     d = textscan(tline, '%d %d %d %d %f\n');
     matno = d{1}; blkno = d{2}; i = d{3}; j = d{4}; entry = d{5};
@@ -58,12 +66,18 @@ while ischar(tline)
         j = base + j;
     end
 
-    F(matno, i, j) = entry;
+    sparseIdxi{matno} = [sparseIdxi{matno}; i];
+    sparseIdxj{matno} = [sparseIdxj{matno}; j];
+    sparseVal{matno} = [sparseVal{matno}; entry];
 
     tline = fgetl(fid);
 end
 
-C = -squeeze(F(1, :, :));
-A = F(2:end, :, :);
+C = sparse(sparseIdxi{1}, sparseIdxj{1}, -sparseVal{1}, matSize, matSize);
+A = cell(m, 1);
+for i = 1 : m
+    A{i} = sparse(sparseIdxi{i+1}, sparseIdxj{i+1}, sparseVal{i+1}, ...
+        matSize, matSize);
+end
 
 end
