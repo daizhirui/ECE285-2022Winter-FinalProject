@@ -4,10 +4,6 @@ function output = linearOp(A, X)
 %  A: cell array of m nxn symmetric matrices
 %  X: nxn symmetric matrices
     
-    m = size(A, 1);
-    output = zeros(m, 1);
-    for i = 1 : m
-        output(i) = sum(A{i} .* X, 'all');
-    end
+    output = linearOp2mat(A) * vec(X);
     
 end
