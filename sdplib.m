@@ -66,9 +66,18 @@ while ischar(tline)
         j = base + j;
     end
 
-    sparseIdxi{matno} = [sparseIdxi{matno}; i];
-    sparseIdxj{matno} = [sparseIdxj{matno}; j];
-    sparseVal{matno} = [sparseVal{matno}; entry];
+    if i ~= j
+        sparseIdxi{matno} = [sparseIdxi{matno}; i];
+        sparseIdxj{matno} = [sparseIdxj{matno}; j];
+        sparseVal{matno} = [sparseVal{matno}; entry];
+        sparseIdxi{matno} = [sparseIdxi{matno}; j];
+        sparseIdxj{matno} = [sparseIdxj{matno}; i];
+        sparseVal{matno} = [sparseVal{matno}; entry];
+    else
+        sparseIdxi{matno} = [sparseIdxi{matno}; i];
+        sparseIdxj{matno} = [sparseIdxj{matno}; j];
+        sparseVal{matno} = [sparseVal{matno}; entry]; 
+    end
 
     tline = fgetl(fid);
 end
