@@ -1,20 +1,19 @@
 function [C, A, b] = sdplib(filename)
-%sdplib loads SDP problem data `C, A, b` from `filename`.
-%the SDP problem is in the following format, NOT the SDPLIB format
-%       min_X <C,X>
-%  subject to <Ai,X>=bi  i = 1 ... m
-%             X >= 0
-%Return:
-%  C: nxn sparse symmetric matrix
-%  A: cell array of m nxn sparse symmetric matrices
-%  b: nx1 right-hand-side equality constraint vector
+% SDPLIB Load SDP problem data `C, A, b` from `filename`.
+%   the SDP problem is in the following format, NOT the SDPLIB format
+%                 min_X <C,X>
+%      subject to <Ai,X>=bi  i = 1 ... m
+%                  X >= 0
+%   Return:
+%       C: nxn sparse symmetric matrix
+%       A: cell array of m nxn sparse symmetric matrices
+%       b: nx1 right-hand-side equality constraint vector
 
 fid = fopen(filename);
 tline = fgetl(fid);
 
 % skip comments
 while ischar(tline)
-    disp(tline);
     if tline(1) == '"' || tline(1) == '*'
         tline = fgetl(fid);
     else
@@ -36,6 +35,9 @@ blockSize = abs(cell2mat(blockSize));
 tline = fgetl(fid);
 
 % read b
+for c = ['{', '}', '(', ')', ',']
+    tline = strrep(tline, c, ' ');
+end
 b = textscan(tline, '%f');
 b = cell2mat(b);
 tline = fgetl(fid);
