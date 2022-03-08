@@ -9,6 +9,12 @@ function [C, A, b] = sdplib(filename)
 %       A: cell array of m nxn sparse symmetric matrices
 %       b: nx1 right-hand-side equality constraint vector
 
+matFilename = sprintf('%s.mat', filename);
+if isfile(matFilename)
+    load(matFilename, 'C', 'A', 'b');
+    return;
+end
+
 fid = fopen(filename);
 tline = fgetl(fid);
 
@@ -90,5 +96,7 @@ for i = 1 : m
     A{i} = sparse(sparseIdxi{i+1}, sparseIdxj{i+1}, sparseVal{i+1}, ...
         matSize, matSize);
 end
+
+save(matFilename, 'A', 'C', 'b');
 
 end
