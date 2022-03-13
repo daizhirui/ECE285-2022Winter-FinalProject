@@ -1,4 +1,4 @@
-function [opt, consumption] = scop_decomp(C, A, b, epsilon, trail_ev, max_cuts, rem)
+function [opt, consumption, Cons] = scop_decomp(C, A, b, epsilon, trail_ev, max_cuts, rem)
 %scop_decomp implements socp decomposition method for solving the following SDP
 %problem:
 %       min_X <C,X>
@@ -18,7 +18,7 @@ function [opt, consumption] = scop_decomp(C, A, b, epsilon, trail_ev, max_cuts, 
 %% initialization
 n = size(C, 1);
 m = size(A, 1);
-t = 0;
+t = 1;
 
 X = sdpvar(n, n);
 
@@ -40,19 +40,24 @@ opt = [];
 consumption = [];
 fXY = 1;
 tic;
+Cons = {};
 while fXY > epsilon & t <= max_cuts
     option = sdpsettings('solver', 'mosek', 'savesolveroutput', 1);
     sol = optimize(F, cost, option);
 
     X_t = value(X);
     if trail_ev
-        [fXY, Y_t] = trail_eig(X_t);
-        F = [F, -trace(X' * Y_t) <= 0];
+        [fXY, Y_t, Ys] = trail_eig(X_t);
+        for j = 1:length(Ys)
+            F = [F, -trace(X' * Ys{j}) <= 0];
+        end
+        Cons{t} = Ys;
         fXY
         value(cost)
     else
         [fXY, Y_t] = nu_norm_cut(X_t);
         F = [F, trace(X' * (Y_t - eye(n))) <= 0];
+        Cons{t} = Y_t;
         fXY
         value(cost)
     end
