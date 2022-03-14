@@ -1,8 +1,8 @@
 function Abar = linearOpT2mat(A)
-%linearOpT2mat converts linear operator A={A1,A2,...,Am} to a 2D matrix as
-%[vec(A1), vec(A2), ... vec(Am)], which is a n^2 x m matrix.
+% LINEAROPT2MAT Convert linear operator A={A1,A2,...,Am} to a 2D matrix as
+% [vec(A1), vec(A2), ... vec(Am)], which is a n^2 x m matrix.
 
-    m = size(A, 2);
+    m = size(A, 1);
     n = size(A{1}, 1);
     nz = nnz(A{1});
     for i = 2 : m

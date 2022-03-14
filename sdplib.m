@@ -1,13 +1,13 @@
 function [C, A, b] = sdplib(filename)
 % SDPLIB Load SDP problem data `C, A, b` from `filename`.
-%   the SDP problem is in the following format, NOT the SDPLIB format
+% the SDP problem is in the following format, NOT the SDPLIB format
 %                 min_X <C,X>
 %      subject to <Ai,X>=bi  i = 1 ... m
 %                  X >= 0
-%   Return:
-%       C: nxn sparse symmetric matrix
-%       A: cell array of m nxn sparse symmetric matrices
-%       b: nx1 right-hand-side equality constraint vector
+% Return:
+%   C: nxn sparse symmetric matrix
+%   A: cell array of m nxn sparse symmetric matrices
+%   b: nx1 right-hand-side equality constraint vector
 
 matFilename = sprintf('%s.mat', filename);
 if isfile(matFilename)

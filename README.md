@@ -1,8 +1,8 @@
 # Iterative Approximating Techniques for SDPs by Cutting-planes
 
-This is the codes for UCSD Winter22 ECE285 final project. We implement basically 5 algorithms in 3 papers namely A spectral bundle method for semidefinite programming, Sum of squares basis pursuit with linear and second order cone programming and On polyhedral and second-order cone decompositions of semidefinite optimization problems. 
+This is the codes for UCSD Winter22 ECE285 final project. We implement basically 5 algorithms in 3 papers namely A spectral bundle method for semidefinite programming, Sum of squares basis pursuit with linear and second order cone programming and On polyhedral and second-order cone decompositions of semidefinite optimization problems.
 
-Experiments are conducted by benchmark dataset [SDPLIB](http://euler.nmt.edu/~brian/sdplib/).
+Experiments are conducted by benchmark dataset [SDPLIB](http://euler.nmt.edu/~brian/sdplib/). In the [ground truth](ref/dataset/sdplib.pdf), there are two problems having the wrong optimal value, which is corrected. Please check the document. The corrected values can also be found in [sdplibList.m](sdplibList.m).
 
 Main file to run SOCP Numerical Experiment
 
