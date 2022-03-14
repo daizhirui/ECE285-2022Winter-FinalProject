@@ -22,4 +22,4 @@ value(cost_sdp)
 
 %% Cutting Plane
 [opt, consumption, Cons] = socp_decomp(C, A, b, 1e-5, true, 100, [1, 5, 20, 100]);
-plotFeasibleSet(A, b, Cons);
+plotFeasibleSetSOCP(A, b, Cons);
